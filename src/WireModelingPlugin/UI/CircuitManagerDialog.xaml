@@ -1,0 +1,132 @@
+<Window x:Class="WireModelingPlugin.UI.CircuitManagerDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Circuit Manager"
+        Width="800" Height="600"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Left Panel - Circuits -->
+        <GroupBox Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                  Header="Circuits" Margin="0,0,5,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Filter by Panel -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,5">
+                    <Label Content="Panel:" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="PanelFilterCombo" Width="150"
+                              SelectionChanged="PanelFilterCombo_SelectionChanged"/>
+                </StackPanel>
+
+                <!-- Filter by System Type -->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,5">
+                    <Label Content="System:" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="SystemFilterCombo" Width="150"
+                              SelectionChanged="SystemFilterCombo_SelectionChanged"/>
+                </StackPanel>
+
+                <!-- Circuit List -->
+                <ListView Grid.Row="2" x:Name="CircuitListView"
+                          SelectionChanged="CircuitListView_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Circuit" Width="120"
+                                            DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="System" Width="80"
+                                            DisplayMemberBinding="{Binding SystemType}"/>
+                            <GridViewColumn Header="Length (ft)" Width="70"
+                                            DisplayMemberBinding="{Binding TotalLength, StringFormat=F1}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <!-- Circuit Actions -->
+                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,0,0">
+                    <Button Content="New Circuit" Click="NewCircuitButton_Click"
+                            Margin="0,0,5,0" Padding="10,3"/>
+                    <Button Content="Delete" Click="DeleteCircuitButton_Click"
+                            Padding="10,3"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Right Panel - Wire Segments -->
+        <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+                  Header="Wire Segments" Margin="5,0,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" x:Name="SelectedCircuitText"
+                           FontWeight="Bold" Margin="0,0,0,5"/>
+
+                <!-- Segments in Circuit -->
+                <ListView Grid.Row="1" x:Name="SegmentListView">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Type" Width="150"
+                                            DisplayMemberBinding="{Binding Specification}"/>
+                            <GridViewColumn Header="Length (ft)" Width="70"
+                                            DisplayMemberBinding="{Binding Length, StringFormat=F1}"/>
+                            <GridViewColumn Header="Verified" Width="60"
+                                            DisplayMemberBinding="{Binding IsVerified}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <!-- Unassigned Segments -->
+                <Expander Grid.Row="2" Header="Unassigned Segments" Margin="0,5,0,0">
+                    <ListView x:Name="UnassignedSegmentListView" MaxHeight="150">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Type" Width="150"
+                                                DisplayMemberBinding="{Binding Specification}"/>
+                                <GridViewColumn Header="Length" Width="70"
+                                                DisplayMemberBinding="{Binding Length, StringFormat=F1}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Expander>
+
+                <!-- Segment Actions -->
+                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,0,0">
+                    <Button Content="Assign Selected" Click="AssignSegmentButton_Click"
+                            Margin="0,0,5,0" Padding="10,3"/>
+                    <Button Content="Unassign" Click="UnassignSegmentButton_Click"
+                            Padding="10,3"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Bottom Buttons -->
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
+                    Orientation="Horizontal" HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
+            <Button Content="OK" Width="80" Margin="0,0,10,0"
+                    Click="OkButton_Click" IsDefault="True"/>
+            <Button Content="Cancel" Width="80"
+                    Click="CancelButton_Click" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

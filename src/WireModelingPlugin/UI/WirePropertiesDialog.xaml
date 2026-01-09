@@ -1,0 +1,115 @@
+<Window x:Class="WireModelingPlugin.UI.WirePropertiesDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Wire Properties"
+        Width="450" Height="550"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,5,0,2"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="Padding" Value="5,3"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="Padding" Value="5,3"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Configure Wire Properties"
+                   FontSize="16" FontWeight="Bold" Margin="0,0,0,15"/>
+
+        <!-- Properties Form -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Quick Select -->
+                <GroupBox Header="Quick Select" Margin="0,0,0,10">
+                    <ComboBox x:Name="QuickSelectCombo"
+                              SelectionChanged="QuickSelectCombo_SelectionChanged"/>
+                </GroupBox>
+
+                <!-- Wire Type -->
+                <Label Content="Wire Type"/>
+                <ComboBox x:Name="WireTypeCombo" SelectionChanged="WireTypeCombo_SelectionChanged"/>
+
+                <!-- Wire Gauge -->
+                <Label Content="Wire Gauge (AWG)"/>
+                <ComboBox x:Name="GaugeCombo" SelectionChanged="GaugeCombo_SelectionChanged"/>
+
+                <!-- Conductor Count -->
+                <Label Content="Number of Conductors"/>
+                <ComboBox x:Name="ConductorCountCombo">
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
+                </ComboBox>
+
+                <!-- Ground Size -->
+                <Label Content="Ground Size (AWG)"/>
+                <ComboBox x:Name="GroundSizeCombo"/>
+
+                <!-- Neutral Size (Optional) -->
+                <Label Content="Neutral Size (if different)"/>
+                <ComboBox x:Name="NeutralSizeCombo"/>
+
+                <!-- Voltage Rating -->
+                <Label Content="Voltage Rating"/>
+                <ComboBox x:Name="VoltageRatingCombo">
+                    <ComboBoxItem Content="300V"/>
+                    <ComboBoxItem Content="600V" IsSelected="True"/>
+                </ComboBox>
+
+                <!-- Temperature Rating -->
+                <Label Content="Temperature Rating"/>
+                <ComboBox x:Name="TempRatingCombo">
+                    <ComboBoxItem Content="60°C"/>
+                    <ComboBoxItem Content="75°C" IsSelected="True"/>
+                    <ComboBoxItem Content="90°C"/>
+                </ComboBox>
+
+                <!-- Insulation Color (Optional) -->
+                <Label Content="Insulation Color (Optional)"/>
+                <ComboBox x:Name="InsulationColorCombo">
+                    <ComboBoxItem Content=""/>
+                    <ComboBoxItem Content="Black"/>
+                    <ComboBoxItem Content="Red"/>
+                    <ComboBoxItem Content="Blue"/>
+                    <ComboBoxItem Content="White"/>
+                    <ComboBoxItem Content="Green"/>
+                </ComboBox>
+
+                <!-- Preview -->
+                <GroupBox Header="Preview" Margin="0,10,0,0">
+                    <StackPanel>
+                        <TextBlock x:Name="SpecPreviewText" FontWeight="Bold" Margin="5"/>
+                        <Rectangle x:Name="ColorPreview" Height="20" Margin="5"
+                                   Stroke="Gray" StrokeThickness="1"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Content="OK" Width="80" Margin="0,0,10,0"
+                    Click="OkButton_Click" IsDefault="True"/>
+            <Button Content="Cancel" Width="80"
+                    Click="CancelButton_Click" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

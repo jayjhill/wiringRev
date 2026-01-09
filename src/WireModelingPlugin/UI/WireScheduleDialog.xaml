@@ -1,0 +1,74 @@
+<Window x:Class="WireModelingPlugin.UI.WireScheduleDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Wire Pull Schedule"
+        Width="700" Height="550"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Wire Pull Schedule Preview"
+                   FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <!-- Schedule Preview -->
+        <DataGrid Grid.Row="1" x:Name="ScheduleDataGrid"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  VerticalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Circuit" Width="100"
+                                    Binding="{Binding CircuitName}"/>
+                <DataGridTextColumn Header="Panel" Width="80"
+                                    Binding="{Binding PanelName}"/>
+                <DataGridTextColumn Header="Wire Specification" Width="150"
+                                    Binding="{Binding WireSpec}"/>
+                <DataGridTextColumn Header="System" Width="80"
+                                    Binding="{Binding SystemType}"/>
+                <DataGridTextColumn Header="Length (ft)" Width="80"
+                                    Binding="{Binding Length, StringFormat=F1}"/>
+                <DataGridTextColumn Header="Notes" Width="*"
+                                    Binding="{Binding Notes}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Summary -->
+        <StackPanel Grid.Row="2" Margin="0,10,0,0">
+            <TextBlock x:Name="SummaryText" FontWeight="SemiBold"/>
+        </StackPanel>
+
+        <!-- Export Options -->
+        <Grid Grid.Row="3" Margin="0,15,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Label Content="Export Format:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="FormatCombo" Width="100" VerticalAlignment="Center">
+                    <ComboBoxItem Content="Excel" IsSelected="True"/>
+                    <ComboBoxItem Content="PDF"/>
+                    <ComboBoxItem Content="CSV"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Content="Export..." Width="80" Margin="0,0,10,0"
+                        Click="ExportButton_Click"/>
+                <Button Content="Close" Width="80"
+                        Click="CloseButton_Click" IsCancel="True"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

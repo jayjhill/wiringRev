@@ -1,0 +1,89 @@
+<Window x:Class="WireModelingPlugin.UI.MaterialTakeoffDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Material Takeoff"
+        Width="600" Height="500"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Wire Material Takeoff"
+                   FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <!-- Takeoff Data -->
+        <TabControl Grid.Row="1">
+            <TabItem Header="By Wire Type">
+                <DataGrid x:Name="ByTypeDataGrid"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Wire Specification" Width="*"
+                                            Binding="{Binding Type}"/>
+                        <DataGridTextColumn Header="Length (ft)" Width="100"
+                                            Binding="{Binding Length, StringFormat=F1}"/>
+                        <DataGridTextColumn Header="Length (m)" Width="100"
+                                            Binding="{Binding LengthMeters, StringFormat=F1}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="By Gauge">
+                <DataGrid x:Name="ByGaugeDataGrid"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Wire Gauge" Width="*"
+                                            Binding="{Binding Gauge}"/>
+                        <DataGridTextColumn Header="Length (ft)" Width="100"
+                                            Binding="{Binding Length, StringFormat=F1}"/>
+                        <DataGridTextColumn Header="Length (m)" Width="100"
+                                            Binding="{Binding LengthMeters, StringFormat=F1}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Summary -->
+        <Border Grid.Row="2" Background="#F0F0F0" Padding="10" Margin="0,10,0,0">
+            <StackPanel>
+                <TextBlock x:Name="TotalLengthText" FontWeight="Bold" FontSize="14"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Export Options -->
+        <Grid Grid.Row="3" Margin="0,15,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Label Content="Export Format:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="FormatCombo" Width="100" VerticalAlignment="Center">
+                    <ComboBoxItem Content="Excel" IsSelected="True"/>
+                    <ComboBoxItem Content="PDF"/>
+                    <ComboBoxItem Content="CSV"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Content="Export..." Width="80" Margin="0,0,10,0"
+                        Click="ExportButton_Click"/>
+                <Button Content="Close" Width="80"
+                        Click="CloseButton_Click" IsCancel="True"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

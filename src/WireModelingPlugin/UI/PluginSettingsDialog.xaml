@@ -1,0 +1,96 @@
+<Window x:Class="WireModelingPlugin.UI.PluginSettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Plugin Settings"
+        Width="450" Height="550"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Wire Modeling Plugin Settings"
+                   FontSize="16" FontWeight="Bold" Margin="0,0,0,15"/>
+
+        <!-- Settings -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Length Calculation Settings -->
+                <GroupBox Header="Length Calculation" Margin="0,0,0,10">
+                    <StackPanel Margin="10">
+                        <Label Content="Waste/Slack Percentage (%)" FontWeight="SemiBold"/>
+                        <TextBox x:Name="WastePercentageText" Margin="0,0,0,10"/>
+
+                        <Label Content="Junction Box Allowance (ft)" FontWeight="SemiBold"/>
+                        <TextBox x:Name="JunctionBoxAllowanceText" Margin="0,0,0,10"/>
+
+                        <Label Content="Panel Termination Allowance (ft)" FontWeight="SemiBold"/>
+                        <TextBox x:Name="PanelTerminationText" Margin="0,0,0,10"/>
+
+                        <Label Content="Device Termination Allowance (ft)" FontWeight="SemiBold"/>
+                        <TextBox x:Name="DeviceTerminationText" Margin="0,0,0,10"/>
+
+                        <CheckBox x:Name="RoundUpCheckBox" Content="Round up to nearest foot"
+                                  Margin="0,5,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Drawing Settings -->
+                <GroupBox Header="Drawing" Margin="0,0,0,10">
+                    <StackPanel Margin="10">
+                        <CheckBox x:Name="ShowPreviewCheckBox"
+                                  Content="Show real-time preview while drawing"
+                                  Margin="0,0,0,5"/>
+
+                        <CheckBox x:Name="AutoSnapCheckBox"
+                                  Content="Auto-snap to electrical connectors"
+                                  Margin="0,0,0,10"/>
+
+                        <Label Content="Snap Tolerance (ft)" FontWeight="SemiBold"/>
+                        <TextBox x:Name="SnapToleranceText" Margin="0,0,0,10"/>
+
+                        <CheckBox x:Name="AutoAssignCheckBox"
+                                  Content="Auto-assign new segments to circuits"
+                                  Margin="0,0,0,5"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Export Settings -->
+                <GroupBox Header="Export" Margin="0,0,0,10">
+                    <StackPanel Margin="10">
+                        <Label Content="Default Export Format" FontWeight="SemiBold"/>
+                        <ComboBox x:Name="DefaultFormatCombo" Margin="0,0,0,10">
+                            <ComboBoxItem Content="Excel"/>
+                            <ComboBoxItem Content="PDF"/>
+                            <ComboBoxItem Content="CSV"/>
+                        </ComboBox>
+
+                        <Label Content="Default Length Unit" FontWeight="SemiBold"/>
+                        <ComboBox x:Name="LengthUnitCombo">
+                            <ComboBoxItem Content="Feet"/>
+                            <ComboBoxItem Content="Inches"/>
+                            <ComboBoxItem Content="Meters"/>
+                        </ComboBox>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Content="Reset to Defaults" Width="120" Margin="0,0,10,0"
+                    Click="ResetButton_Click"/>
+            <Button Content="OK" Width="80" Margin="0,0,10,0"
+                    Click="OkButton_Click" IsDefault="True"/>
+            <Button Content="Cancel" Width="80"
+                    Click="CancelButton_Click" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,42 @@
+<Window x:Class="WireModelingPlugin.UI.NewCircuitDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="New Circuit"
+        Width="350" Height="300"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Create New Circuit"
+                   FontSize="14" FontWeight="Bold" Margin="0,0,0,15"/>
+
+        <StackPanel Grid.Row="1">
+            <Label Content="Panel Name" FontWeight="SemiBold"/>
+            <ComboBox x:Name="PanelCombo" IsEditable="True" Margin="0,0,0,10"/>
+
+            <Label Content="Circuit Number" FontWeight="SemiBold"/>
+            <TextBox x:Name="CircuitNumberText" Margin="0,0,0,10"/>
+
+            <Label Content="System Type" FontWeight="SemiBold"/>
+            <ComboBox x:Name="SystemTypeCombo" Margin="0,0,0,10"/>
+
+            <Label Content="Description (Optional)" FontWeight="SemiBold"/>
+            <TextBox x:Name="DescriptionText" Margin="0,0,0,10"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="Create" Width="80" Margin="0,0,10,0"
+                    Click="CreateButton_Click" IsDefault="True"/>
+            <Button Content="Cancel" Width="80"
+                    Click="CancelButton_Click" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>
